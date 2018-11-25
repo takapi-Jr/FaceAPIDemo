@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FaceAPI_SampleApp.Models;
+using System.Windows.Input;
+using Xamarin.Forms;
+using System.IO;
 
 namespace FaceAPI_SampleApp.ViewModels
 {
@@ -35,11 +38,11 @@ namespace FaceAPI_SampleApp.ViewModels
         }
 
         //// 顔認識情報
-        //private KeyData _faceDetail;
-        //public KeyData FaceDetail
+        //private KeyData _faceResult;
+        //public KeyData FaceResult
         //{
-        //    get { return _faceDetail; }
-        //    set { SetProperty(ref _faceDetail, value); }
+        //    get { return _faceResult; }
+        //    set { SetProperty(ref _faceResult, value); }
         //}
 
         #endregion
@@ -47,6 +50,66 @@ namespace FaceAPI_SampleApp.ViewModels
 
 
         #region コマンド
+
+        /// <summary>
+        /// 画像選択画面を表示するコマンド
+        /// </summary>
+        public ICommand PickPictureCommand => new Command(async () =>
+        {
+            try
+            {
+                //pickPictureButton.IsEnabled = false;
+                Stream stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
+
+                if (stream != null)
+                {
+                    Image image = new Image
+                    {
+                        Source = ImageSource.FromStream(() => stream),
+                        BackgroundColor = Color.Gray
+                    };
+
+                    TapGestureRecognizer recognizer = new TapGestureRecognizer();
+                    recognizer.Tapped += (sender2, args) =>
+                    {
+                        //(MainPage as ContentPage).Content = stack;
+                        //pickPictureButton.IsEnabled = true;
+                    };
+                    image.GestureRecognizers.Add(recognizer);
+
+                    //(MainPage as ContentPage).Content = image;
+                }
+                else
+                {
+                    //pickPictureButton.IsEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                //DisplayAlert("タイトル", "メッセージ", "OK");
+            }
+        });
+
+        /// <summary>
+        /// ResultPageへ画面遷移するコマンド
+        /// </summary>
+        private DelegateCommand _gotoResultPageCommand;
+        public DelegateCommand GotoResultPageCommand
+        {
+            get
+            {
+                if (this._gotoResultPageCommand != null)
+                {
+                    return this._gotoResultPageCommand;
+                }
+
+                this._gotoResultPageCommand = new DelegateCommand(() =>
+                {
+                    this.NavigationService.NavigateAsync("ResultPage");
+                });
+                return this._gotoResultPageCommand;
+            }
+        }
 
         /// <summary>
         /// SettingPageへ画面遷移するコマンド

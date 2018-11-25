@@ -33,8 +33,8 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            
-            <Button Grid.Row="0" Grid.Column="0" Text="画像の選択" />
+
+            <Button Grid.Row="0" Grid.Column="0" Text="画像の選択" Command="{Binding PickPictureCommand}" />
             <Button Grid.Row="0" Grid.Column="1" Text="APIキー設定" Command="{Binding GotoSettingPageCommand}" />
         </Grid>
     </StackLayout>
