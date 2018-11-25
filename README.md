@@ -9,6 +9,7 @@ MicrosoftのFace APIを使用して、表情などの情報を取得するサン
 |Xamarin.Forms|v3.1.0.697729(2018/08時点の最新を使用)|
 |Prism.DryIoc.Forms|v7.0.0.396(2018/08時点の最新を使用)|
 |Microsoft.Azure.CognitiveServices.Vision.Face|v2.2.0-preview <br> (Nugetから取得する際は「プレリリースを含める」のチェックボックスをONにして検索)|
+|Xamarin.Forms.BehaviorsPack|v2.0.0|
 |Xamarin.Android.Support.Design <br> Xamarin.Android.Support.v4 <br> Xamarin.Android.Support.v7.AppCompat <br> Xamarin.Android.Support.v7.CardView <br> Xamarin.Android.Support.v7.MediaRouter|v25.4.0.2(最新を使うと怒られた) <br> ※補足1：monoandroidのバージョンによって使用できるバージョンが異なる <br> ※補足2：ターゲットAndroidバージョンが7.0(APIレベル24)未満の場合は、v23.3.0を指定する必要あり|
 
 参考ページ：  
