@@ -20,13 +20,11 @@ namespace FaceAPI_SampleApp.ViewModels
         // パラメータ取得用キー
         public static readonly string InputKey_AccessKey = "AccessKey";
         // 東日本エンドポイント
-        public static readonly string FaceUriEndPoint = "https://japaneast.api.cognitive.microsoft.com/face/v1.0";
-        // テスト文字列
-        public static readonly string TestString = "Test";
+        public static readonly string FaceUriEndPoint = "https://japaneast.api.cognitive.microsoft.com";
         
         // 取得したい(顔の)情報を配列で設定。
         private static readonly FaceAttributeType[] faceAttributes =
-            { FaceAttributeType.Age, FaceAttributeType.Gender, FaceAttributeType.Emotion };
+            { FaceAttributeType.Age, FaceAttributeType.Gender, FaceAttributeType.Emotion, FaceAttributeType.Smile };
 
         #endregion
 
@@ -42,7 +40,7 @@ namespace FaceAPI_SampleApp.ViewModels
             set { SetProperty(ref _accessKey, value); }
         }
 
-        // 画像情報
+        // 画像情報(画像表示用)
         private ImageSource _faceImageSource;
         public ImageSource FaceImageSource
         {
@@ -50,7 +48,7 @@ namespace FaceAPI_SampleApp.ViewModels
             set { SetProperty(ref _faceImageSource, value); }
         }
 
-        // 画像情報(ストリーム)
+        // 画像情報(画像データ送信用ストリーム)
         private Stream _faceImageStream;
         public Stream FaceImageStream
         {
@@ -81,13 +79,10 @@ namespace FaceAPI_SampleApp.ViewModels
             try
             {
                 // 画像選択画面を表示
-                Stream FaceImageStream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
-                
+                FaceImageStream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
+
                 // 選択した画像情報を取得
-                if (FaceImageStream != null)
-                {
-                    FaceImageSource = ImageSource.FromStream(() => FaceImageStream);
-                }
+                FaceImageSource = ImageSource.FromStream(() => FaceImageStream);
             }
             catch (Exception ex)
             {
@@ -102,19 +97,30 @@ namespace FaceAPI_SampleApp.ViewModels
         {
             try
             {
-                var faceClient = new FaceClient(new ApiKeyServiceClientCredentials(AccessKey.APIKey), new System.Net.Http.DelegatingHandler[] { });
-                faceClient.Endpoint = FaceUriEndPoint;
-
+                var faceClient = new FaceClient(new ApiKeyServiceClientCredentials(AccessKey.APIKey), new System.Net.Http.DelegatingHandler[] { })
+                {
+                    Endpoint = FaceUriEndPoint,
+                };
+                
                 // ストリーム(タップした画像)から検出処理
-                var faceList = await faceClient.Face.DetectWithStreamAsync(FaceImageStream, false, false, faceAttributes);
+                var faceList = await faceClient.Face.DetectWithStreamAsync(FaceImageStream, true, false, faceAttributes);
+
+                if (faceList.Count == 0 || faceList == null)
+                {
+                    return;
+                }
                 DetectedData = faceList[0];
                 
                 // URLから検出処理
                 //var faceList = await faceClient.Face.DetectWithUrlAsync(speaker.Avatar, true, false, faceAttributes);
             }
+            catch (APIErrorException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("FaceAPIExecuteCommand", $"APIErrorExceptionです。\n{ex}", "OK");
+            }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("FaceAPIExecuteCommand", "FaceAPI実行に失敗しました。", "OK");
+                await Application.Current.MainPage.DisplayAlert("FaceAPIExecuteCommand", $"例外が発生しました。\n{ex}", "OK");
             }
         });
 

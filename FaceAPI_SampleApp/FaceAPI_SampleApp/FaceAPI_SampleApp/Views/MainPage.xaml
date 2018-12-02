@@ -16,15 +16,24 @@
         <Label Text="Microsoft FaceAPI" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="32" Margin="0,100,0,0" />
         <Label Text="SampleApp" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="32" />
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,30,0,0">
-            <Label Text="Name：" />
-            <Label Text="{Binding AccessKey.Name}" />
-        </StackLayout>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Label Text="APIKey：" />
-            <Label Text="{Binding AccessKey.APIKey}" />
-        </StackLayout>
+        <!-- 結果表示 -->
+        <Grid HorizontalOptions="Center" VerticalOptions="FillAndExpand" RowSpacing="5" ColumnSpacing="10" Margin="0,30,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
 
+            <Label Grid.Row="0" Grid.Column="0" Text="Name：" HorizontalOptions="End" />
+            <Label Grid.Row="0" Grid.Column="1" Text="{Binding AccessKey.Name}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="1" Grid.Column="0" Text="APIKey：" HorizontalOptions="End" />
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding AccessKey.APIKey}" HorizontalOptions="Start" />
+        </Grid>
+        
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" RowSpacing="10" Margin="0,0,0,100">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />

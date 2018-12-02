@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FaceAPI_SampleApp.Models;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace FaceAPI_SampleApp.ViewModels
 {
@@ -43,23 +45,29 @@ namespace FaceAPI_SampleApp.ViewModels
         /// <summary>
         /// ExecutePageへ画面遷移するコマンド
         /// </summary>
-        private DelegateCommand _gotoExecutePageCommand;
-        public DelegateCommand GotoExecutePageCommand
+        public ICommand GotoExecutePageCommand => new Command(() =>
         {
-            get
+            try
             {
-                if (this._gotoExecutePageCommand != null)
+                if (AccessKey == null)
                 {
-                    return this._gotoExecutePageCommand;
+                    return;
                 }
 
-                this._gotoExecutePageCommand = new DelegateCommand(() =>
+                // ExecutePageへ遷移
+                var navigationParameters = new NavigationParameters()
                 {
-                    this.NavigationService.NavigateAsync("ExecutePage");
-                });
-                return this._gotoExecutePageCommand;
+                    //{ "キー", 値 },
+                    { ExecutePageViewModel.InputKey_AccessKey, AccessKey },
+                };
+
+                this.NavigationService.NavigateAsync("ExecutePage", navigationParameters);
             }
-        }
+            catch (Exception ex)
+            {
+                //await Application.Current.MainPage.DisplayAlert("タイトル", "メッセージ", "OK");
+            }
+        });
 
         /// <summary>
         /// SettingPageへ画面遷移するコマンド

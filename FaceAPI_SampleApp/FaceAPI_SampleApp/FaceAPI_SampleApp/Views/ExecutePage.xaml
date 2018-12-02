@@ -45,6 +45,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -80,6 +81,9 @@
 
             <Label Grid.Row="9" Grid.Column="0" Text="Surprise(驚き)：" HorizontalOptions="End" />
             <Label Grid.Row="9" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Emotion.Surprise}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="10" Grid.Column="0" Text="Smile(笑顔)：" HorizontalOptions="End" />
+            <Label Grid.Row="10" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Smile}" HorizontalOptions="Start" />
         </Grid>
     </StackLayout>
 
