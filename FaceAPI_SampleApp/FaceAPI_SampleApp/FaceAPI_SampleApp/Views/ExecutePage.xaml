@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="FaceAPI_SampleApp.Views.ExecutePage"
+             Title="{Binding Title}">
+
+    <!-- プラットフォーム別のパディング設定 -->
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    Android="0"
+                    WinPhone="0"
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+
+    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+        <!-- 画像表示 -->
+        <Image Source="{Binding FaceImageSource}" BackgroundColor="Gray" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" HeightRequest="200" WidthRequest="300" Margin="10" />
+
+        <!-- ボタン表示 -->
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Text="画像選択" Command="{Binding PickPictureCommand}" />
+            <Button Grid.Row="0" Grid.Column="1" Text="FaceAPI実行" Command="{Binding FaceAPIExecuteCommand}" />
+        </Grid>
+
+        <!-- 結果表示 -->
+        <Grid HorizontalOptions="Center" VerticalOptions="FillAndExpand" RowSpacing="5" ColumnSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Text="Age(年齢)：" HorizontalOptions="End" />
+            <Label Grid.Row="0" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Age}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Gender(性別)：" HorizontalOptions="End" />
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Gender}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="2" Grid.Column="0" Text="Anger(怒り)：" HorizontalOptions="End" />
+            <Label Grid.Row="2" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Emotion.Anger}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="3" Grid.Column="0" Text="Contempt(軽蔑)：" HorizontalOptions="End" />
+            <Label Grid.Row="3" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Emotion.Contempt}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="4" Grid.Column="0" Text="Disgust(嫌悪)：" HorizontalOptions="End" />
+            <Label Grid.Row="4" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Emotion.Disgust}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="5" Grid.Column="0" Text="Fear(恐れ)：" HorizontalOptions="End" />
+            <Label Grid.Row="5" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Emotion.Fear}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="6" Grid.Column="0" Text="Happiness(幸福)：" HorizontalOptions="End" />
+            <Label Grid.Row="6" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Emotion.Happiness}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="7" Grid.Column="0" Text="Neutral(中性)：" HorizontalOptions="End" />
+            <Label Grid.Row="7" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Emotion.Neutral}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="8" Grid.Column="0" Text="Sadness(悲しみ)：" HorizontalOptions="End" />
+            <Label Grid.Row="8" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Emotion.Sadness}" HorizontalOptions="Start" />
+
+            <Label Grid.Row="9" Grid.Column="0" Text="Surprise(驚き)：" HorizontalOptions="End" />
+            <Label Grid.Row="9" Grid.Column="1" Text="{Binding DetectedData.FaceAttributes.Emotion.Surprise}" HorizontalOptions="Start" />
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

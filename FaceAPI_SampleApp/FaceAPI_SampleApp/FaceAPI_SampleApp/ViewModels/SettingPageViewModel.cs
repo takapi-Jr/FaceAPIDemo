@@ -54,7 +54,7 @@ namespace FaceAPI_SampleApp.ViewModels
             }
             catch (Exception ex)
             {
-                //DisplayAlert("タイトル", "メッセージ", "OK");
+                //await Application.Current.MainPage.DisplayAlert("タイトル", "メッセージ", "OK");
             }
         });
 

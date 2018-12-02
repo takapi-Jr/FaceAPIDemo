@@ -17,11 +17,11 @@
         <Label Text="SampleApp" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="32" />
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,30,0,0">
-            <Label Text="Name:" />
+            <Label Text="Name：" />
             <Label Text="{Binding AccessKey.Name}" />
         </StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Label Text="APIKey:" />
+            <Label Text="APIKey：" />
             <Label Text="{Binding AccessKey.APIKey}" />
         </StackLayout>
 
@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="0" Text="画像の選択" Command="{Binding PickPictureCommand}" />
+            <Button Grid.Row="0" Grid.Column="0" Text="実行画面へ" Command="{Binding GotoExecutePageCommand}" />
             <Button Grid.Row="0" Grid.Column="1" Text="APIキー設定" Command="{Binding GotoSettingPageCommand}" />
         </Grid>
     </StackLayout>

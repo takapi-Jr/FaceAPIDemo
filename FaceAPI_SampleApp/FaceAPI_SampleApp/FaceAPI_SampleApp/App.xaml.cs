@@ -31,6 +31,7 @@ namespace FaceAPI_SampleApp
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<SettingPage, SettingPageViewModel>();
+            containerRegistry.RegisterForNavigation<ExecutePage, ExecutePageViewModel>();
         }
     }
 }
