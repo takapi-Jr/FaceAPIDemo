@@ -1,6 +1,7 @@
 # FaceAPI_SampleApp
 Face APIサンプルアプリ(Xamarin.Formsアプリ)  
 MicrosoftのFace APIを使用して、表情などの情報を取得するサンプルアプリ。  
+画像を選択して実行と、カメラで撮影して実行する2通りを用意している。  
 
 # 使用したNugetパッケージとバージョン
 |Nugetパッケージ名|バージョン|
@@ -10,6 +11,7 @@ MicrosoftのFace APIを使用して、表情などの情報を取得するサン
 |Prism.DryIoc.Forms|v7.0.0.396(2018/08時点の最新を使用)|
 |Microsoft.Azure.CognitiveServices.Vision.Face|v2.2.0-preview <br> (Nugetから取得する際は「プレリリースを含める」のチェックボックスをONにして検索)|
 |Xamarin.Forms.BehaviorsPack|v2.0.0|
+|Xam.Plugin.Media|v4.0.1.5|
 |Xamarin.Android.Support.Design <br> Xamarin.Android.Support.v4 <br> Xamarin.Android.Support.v7.AppCompat <br> Xamarin.Android.Support.v7.CardView <br> Xamarin.Android.Support.v7.MediaRouter|v25.4.0.2(最新を使うと怒られた) <br> ※補足1：monoandroidのバージョンによって使用できるバージョンが異なる <br> ※補足2：ターゲットAndroidバージョンが7.0(APIレベル24)未満の場合は、v23.3.0を指定する必要あり|
 
 参考ページ：  
