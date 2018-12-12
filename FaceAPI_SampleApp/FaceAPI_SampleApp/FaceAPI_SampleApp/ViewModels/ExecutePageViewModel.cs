@@ -82,17 +82,10 @@ namespace FaceAPI_SampleApp.ViewModels
                 }
 
                 // 画像選択画面を表示
-                var file = await CrossMedia.Current.PickPhotoAsync();
-
-                // pngファイルの画像を表示できていない
-                //switch (Path.GetExtension(file.Path))
-                //{
-                //    case ".png":
-                //    case ".PNG":
-                //        break;
-                //    default:
-                //        break;
-                //}
+                var file = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                {
+                    PhotoSize = PhotoSize.Medium,
+                });
 
                 // 画像を選択しなかった場合は終了
                 if (file == null)
@@ -102,7 +95,7 @@ namespace FaceAPI_SampleApp.ViewModels
                 }
 
                 // 選択した画像ファイルの中身をメモリに読み込む
-                var bytes = GetImageBytes(file);
+                var bytes = Common.GetImageBytes(file);
                 file.Dispose();
 
                 // 表示用画像設定
@@ -128,7 +121,6 @@ namespace FaceAPI_SampleApp.ViewModels
         {
             try
             {
-
                 // Pluginの初期化
                 await CrossMedia.Current.Initialize();
 
@@ -144,7 +136,8 @@ namespace FaceAPI_SampleApp.ViewModels
                     // ストレージに保存するファイル情報
                     // すでに同名ファイルがある場合は、temp_1.jpg などの様に連番がつけられ名前の衝突が回避される
                     Directory = "TempPhotos",
-                    Name = "temp.jpg"
+                    Name = "temp.jpg",
+                    PhotoSize = PhotoSize.Medium,
                 });
 
                 // カメラ撮影しなかった場合は終了
@@ -155,7 +148,7 @@ namespace FaceAPI_SampleApp.ViewModels
                 }
 
                 // 一時的に保存した画像ファイルの中身をメモリに読み込み、ファイルは削除してしまう
-                var bytes = GetImageBytes(file);
+                var bytes = Common.GetImageBytes(file);
                 File.Delete(file.Path);
                 file.Dispose();
 
@@ -203,10 +196,11 @@ namespace FaceAPI_SampleApp.ViewModels
 
                 // ストリーム(タップした画像)から検出処理
                 System.Diagnostics.Debug.WriteLine("FaceAPI実行");
-                var faceList = await faceClient.Face.DetectWithStreamAsync(GetStreamFromImageSource(FaceImageSource), true, false, faceAttributes);
+                var faceList = await faceClient.Face.DetectWithStreamAsync(Common.GetStreamFromImageSource(FaceImageSource), true, false, faceAttributes);
 
                 if (faceList.Count == 0 || faceList == null)
                 {
+                    await Application.Current.MainPage.DisplayAlert("ExecuteFaceAPIAsync", $"顔検出できませんでした。", "OK");
                     return;
                 }
                 DetectedData = faceList[0];
@@ -221,40 +215,6 @@ namespace FaceAPI_SampleApp.ViewModels
             }
 
             return;
-        }
-
-        /// <summary>
-        /// MediaFileからbyteのqueueに変換
-        /// </summary>
-        /// <param name="mediaFile">画像情報</param>
-        /// <returns>画像のバイト配列(キュー)</returns>
-        public Queue<byte> GetImageBytes(MediaFile mediaFile)
-        {
-            var bytes = new Queue<byte>();
-            using (var stream = mediaFile.GetStream())
-            {
-                var length = stream.Length;
-                int b;
-                while ((b = stream.ReadByte()) != -1)
-                {
-                    bytes.Enqueue((byte)b);
-                }
-            }
-            return bytes;
-        }
-
-        /// <summary>
-        /// ImageSourceからStreamを取得
-        /// </summary>
-        /// <param name="source">表示用画像ソース</param>
-        /// <returns>ストリーム</returns>
-        public Stream GetStreamFromImageSource(ImageSource source)
-        {
-            StreamImageSource streamImageSource = (StreamImageSource)source;
-            System.Threading.CancellationToken cancellationToken = System.Threading.CancellationToken.None;
-            Task<Stream> task = streamImageSource.Stream(cancellationToken);
-            Stream stream = task.Result;
-            return stream;
         }
 
         /// <summary>

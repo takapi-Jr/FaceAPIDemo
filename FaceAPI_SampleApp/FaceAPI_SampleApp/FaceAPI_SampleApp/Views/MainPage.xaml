@@ -13,10 +13,11 @@
     </ContentPage.Padding>
 
     <StackLayout HorizontalOptions="CenterAndExpand">
+        <!-- タイトル表示 -->
         <Label Text="Microsoft FaceAPI" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="32" Margin="0,100,0,0" />
         <Label Text="SampleApp" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="32" />
 
-        <!-- 結果表示 -->
+        <!-- APIキー表示 -->
         <Grid HorizontalOptions="Center" VerticalOptions="FillAndExpand" RowSpacing="5" ColumnSpacing="10" Margin="0,30,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -34,6 +35,7 @@
             <Label Grid.Row="1" Grid.Column="1" Text="{Binding AccessKey.APIKey}" HorizontalOptions="Start" />
         </Grid>
         
+        <!-- ボタン表示 -->
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" RowSpacing="10" Margin="0,0,0,100">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />

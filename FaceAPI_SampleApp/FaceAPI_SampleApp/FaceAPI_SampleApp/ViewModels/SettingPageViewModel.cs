@@ -54,7 +54,7 @@ namespace FaceAPI_SampleApp.ViewModels
             }
             catch (Exception ex)
             {
-                //await Application.Current.MainPage.DisplayAlert("タイトル", "メッセージ", "OK");
+                Application.Current.MainPage.DisplayAlert("SettingAPIKeyCommand", $"例外が発生しました。{ex}", "OK");
             }
         });
 
