@@ -5,7 +5,7 @@
              xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="FaceAPI_SampleApp.Views.SettingPage"
-             xmlns:local="clr-namespace:FaceAPI_SampleApp.ViewModels"
+             xmlns:converter="clr-namespace:FaceAPI_SampleApp.Converters"
              Title="{Binding Title}">
 
     <!-- プラットフォーム別のパディング設定 -->
@@ -17,7 +17,7 @@
     </ContentPage.Padding>
 
     <ContentPage.Resources>
-        <local:MultiTriggerConverter x:Key="dataHasBeenEntered" />
+        <converter:MultiTriggerConverter x:Key="dataHasBeenEntered" />
     </ContentPage.Resources>
     
     <!-- 入力画面 -->
