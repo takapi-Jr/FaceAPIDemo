@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FaceAPIDemo.Views.MainPage"
+             Title="{Binding Title}">
+
+    <!--<ContentPage.Resources>
+        <converters:MultiTriggerConverter x:Key="dataHasBeenEntered" />
+    </ContentPage.Resources>-->
+
+    <StackLayout Orientation="Vertical">
+        <!-- タイトル表示 -->
+        <Label Text="Microsoft FaceAPI" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="32" Margin="0,100,0,0" />
+        <Label Text="DemoApp" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="32" />
+
+        <!-- APIキー表示 -->
+        <Grid Margin="10,100,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Text="APIKey：" HorizontalOptions="End" />
+            <Entry Grid.Row="0" Grid.Column="1" x:Name="apiKey" Text="{Binding APIKey.Value}" HorizontalOptions="FillAndExpand" />
+        </Grid>
+
+        <!-- ボタン表示 -->
+        <Button Text="実行画面へ" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Command="{Binding ExecutePageCommand}" IsEnabled="False" Margin="0,30,0,0" />
+    </StackLayout>
+
+</ContentPage>
