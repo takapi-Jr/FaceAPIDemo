@@ -19,12 +19,12 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" Text="APIKey：" HorizontalOptions="End" />
-            <Entry Grid.Row="0" Grid.Column="1" x:Name="apiKey" Text="{Binding APIKey.Value}" HorizontalOptions="FillAndExpand" />
+            
+            <Label Grid.Row="0" Grid.Column="0" Text="APIKey：" VerticalTextAlignment="Center" />
+            <Entry Grid.Row="0" Grid.Column="1" x:Name="apiKey" Text="{Binding APIKey.Value}" VerticalTextAlignment="Center" />
         </Grid>
 
         <!-- ボタン表示 -->
