@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Text;
+using Xamarin.Essentials;
 
 namespace FaceAPIDemo.ViewModels
 {
     public class MainPageViewModel : ViewModelBase, IDisposable
     {
-        public ReactiveProperty<string> APIKey { get; } = new ReactiveProperty<string>();
+        public ReactiveProperty<string> APIKey { get; } = new ReactiveProperty<string>(Preferences.Get(nameof(APIKey), ""));
 
         public AsyncReactiveCommand ExecutePageCommand { get; } = new AsyncReactiveCommand();
 
@@ -25,6 +26,11 @@ namespace FaceAPIDemo.ViewModels
             : base(navigationService)
         {
             Title = "Main Page";
+
+            APIKey.Subscribe((param) =>
+            {
+                Preferences.Set(nameof(APIKey), param);
+            }).AddTo(this.Disposable);
 
             ExecutePageCommand.Subscribe(async () =>
             {
